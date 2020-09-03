@@ -4,7 +4,7 @@
 - This project will be a _Request Validator_
 - My inspiration is the [Laravel Request Validator](https://laravel.com/docs/7.x/validation#quick-writing-the-validation-logic)
 ## TODO List
-- [ ] Define Folder Structure
+- [x] Define Folder Structure
 - [ ] Create a Package
 - [ ] POST Validation
     - [ ] Simple
@@ -24,6 +24,6 @@
 - _go-request-validator/_ - Package Root Dir
     - _test/_   - Folder for tests
     - _tools/_  - Helpers, global func
-    - _pkg/_    - Packages that can be used by everythign 
+    - _pkg/_    - Packages that can be used by everything
     - _config/_ - App config files
     - _cmd/_    - Main Applications
