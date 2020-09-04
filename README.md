@@ -27,3 +27,51 @@
     - _pkg/_    - Packages that can be used by everything
     - _config/_ - App config files
     - _cmd/_    - Main Applications
+
+#### Code Snippets
+- Receiving json data
+-   ```go
+        package main
+
+        import (
+            "log"
+            "net/http"
+            "encoding/json"
+        )
+
+        type test_struc struct {
+        //  varName varType `json:"keyName"`
+            Name    string  `json:"name"`
+            Email   string  `json:"email"`
+            Age     int     `json:"age"`
+        }
+
+        // Func Handler
+        func getReq(w http.ResponseWriter, req *http.Request) {
+            dec := json.NewDecoder(req.Body)
+            var t test_struc
+            err := dec.Decode(&t)
+            if(err != nil) {
+                panic(err)
+            }
+            log.Println(t)
+        }
+
+        func main()  {
+        //  http.HandleFunc("/endpoint", func)
+            http.HandleFunc("/", getReq)
+
+        //  http.ListenAndServe(":port", nil)
+            http.ListenAndServe(":8080", nil)
+        }
+    ```
+- Sending:
+-   ```json
+        {
+            "name": "Rafael Breno de Vasconcellos Santos",
+            "email": "rafael@coldletter.moc",
+            "age": 20
+        }
+    ```
+- The struct _t_ will be:
+    - _{Rafael Breno de Vasconcellos Santos rafael@coldletter.moc 20}_
