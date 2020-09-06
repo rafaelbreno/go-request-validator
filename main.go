@@ -4,15 +4,27 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"reflect"
 )
 
 type test_struc struct {
 // 	varName varType `json:"keyName"`
-	Name 	string 	`json:"name"`
-	Email 	string 	`json:"email"`
-	Age 	int		`json:"age"`
+	Name 	string 	`json:"name" type:"string" min:"6" max:"60" required:"true"`
+	Email 	string 	`json:"email" type:"email" min:"6" max:"60" required:"true"`
+	Age 	int		`json:"age" type:"int" min:"18" max:"90" required:"true"`
 }
 
+func validate(t test_struc) {
+	v := reflect.ValueOf(t)
+
+	typeValid := v.Type()
+
+	for i := 0; i < v.NumField(); i++ {
+		field := typeValid.Field(i)
+		log.Println("Field:", field.Name, " - Value:", v.Field(i))
+		log.Println("-_-_-_-_-_-_-_-_-_-_-_-")
+	}
+}
 // Func Handler
 func getReq(w http.ResponseWriter, req *http.Request) {
 	dec := json.NewDecoder(req.Body)
@@ -21,7 +33,7 @@ func getReq(w http.ResponseWriter, req *http.Request) {
 	if(err != nil) {
 		panic(err)
 	}
-	log.Println(t)
+	validate(t)
 }
 
 func main()  {
