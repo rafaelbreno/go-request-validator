@@ -4,6 +4,8 @@ import (
 	"log"
 	"strings"
 	"reflect"
+	"go-request-validator/cmd/validation"
+    "strconv"
 )
 
 func Validate(v reflect.Value) {
@@ -12,9 +14,21 @@ func Validate(v reflect.Value) {
 	for i := 0; i < v.NumField(); i++ {
 		field := typeValid.Field(i)
 		// log.Println(field.Tag)
-		
-		for ruleKey, ruleValue := range filterRules(string(field.Tag)) {
-			log.Println(ruleKey, ruleValue)
+		rules := filterRules(string(field.Tag))
+		for ruleKey, ruleValue := range rules {
+			// log.Println(ruleKey, ruleValue)
+			intRuleValue, _ := strconv.Atoi(ruleValue)
+			fieldName := v.Field(i).String()
+			switch ruleKey {
+				case "required":
+					log.Println(validation.Required(fieldName, field.Name))
+				case "max":
+					log.Println(validation.Max(fieldName, field.Name, intRuleValue))
+				case "min":
+					log.Println(validation.Min(fieldName, field.Name, intRuleValue))
+				default: 
+					log.Println("-------")
+			}
 		}
 		// log.Println("Field:", field.Name, " - Value:", v.Field(i))
 		// log.Println("-_-_-_-_-_-_-_-_-_-_-_-")
