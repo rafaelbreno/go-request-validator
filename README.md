@@ -5,12 +5,12 @@
 - My inspiration is the [Laravel Request Validator](https://laravel.com/docs/7.x/validation#quick-writing-the-validation-logic)
 ## TODO List
 - [x] Define Folder Structure
-- [ ] Create a Package
+- [x] Create a Package
 - [ ] POST Validation
     - [ ] Simple
-        - [ ] Required
+        - [x] Required
         - [ ] Type 
-        - [ ] Length
+        - [x] Length
     - [ ] Medium Level
         - [ ] Unique
         - [ ] Regex
