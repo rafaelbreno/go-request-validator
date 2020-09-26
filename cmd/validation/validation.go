@@ -12,9 +12,9 @@ func Required(value string, field string) (bool, string) {
 	return resp, msg
 }
 
-func Max(value interface{}, field string, maxValue int) (bool, string) {
-	switch value.(type) {
-        case string:
+func Max(value interface{}, field string, maxValue int, varType string) (bool, string) {
+	switch varType {
+        case "string":
     		valStr, _ := value.(string)
             return maxString(valStr, field, maxValue)
         default:
@@ -44,9 +44,10 @@ func maxString(value string, field string, maxValue int) (bool, string) {
 }
 
 
-func Min(value interface{}, field string, minValue int) (bool, string) {
-	switch value.(type) {
-        case string:
+func Min(value interface{}, field string, minValue int, varType string) (bool, string) {
+	fmt.Println(value)
+	switch varType {
+        case "string":
     		valStr, _ := value.(string)
 			return minString(valStr, field, minValue)
         default:

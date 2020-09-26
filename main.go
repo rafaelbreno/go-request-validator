@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	"encoding/json"
-	"reflect"
+	// "encoding/json"
+	// "reflect"
 	"go-request-validator/cmd/validator"
 )
 
@@ -15,13 +15,15 @@ type test_struc struct {
 }
 // Func Handler
 func getReq(w http.ResponseWriter, req *http.Request) {
-	dec := json.NewDecoder(req.Body)
 	var t test_struc
-	err := dec.Decode(&t)
-	if(err != nil) {
-		panic(err)
-	}
-	validator.Validate(reflect.ValueOf(t))
+	validator.Validate(&t, req)
+	// dec := json.NewDecoder(req.Body)
+	// var t test_struc
+	// err := dec.Decode(&t)
+	// if(err != nil) {
+	// 	panic(err)
+	// }
+	// validator.Validate(reflect.ValueOf(t))
 }
 
 func main()  {
