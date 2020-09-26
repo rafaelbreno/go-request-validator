@@ -6,6 +6,17 @@
 ## TODO List
 - [x] Define Folder Structure
 - [x] Create a Package
+- [ ] Call one Function
+    - Maybe like this:
+    -   ```go
+            func Validate(reqStruct interface{}, req *http.Request) {
+                // so it would only be called and sended those 
+                // params
+                dec := json.NewDecoder(req.Body)
+                dec.Decode(reqStruct)
+                /* ... something like this ... */
+            }
+        ```
 - [ ] POST Validation
     - [ ] Simple
         - [x] Required
