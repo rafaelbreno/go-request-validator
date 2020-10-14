@@ -49,10 +49,10 @@ func Min(value interface{}, field string, minValue int, varType string) (bool, s
 	switch varType {
         case "string":
     		valStr, _ := value.(string)
-			return minString(valStr, field, minValue)
+		return minString(valStr, field, minValue)
         default:
     		valInt, _ := value.(int)
-            return minInt(valInt, field, minValue)
+		return minInt(valInt, field, minValue)
 	}
 }
 

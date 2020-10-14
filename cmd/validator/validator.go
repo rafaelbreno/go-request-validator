@@ -3,13 +3,13 @@ package validator
 import (
 	// "fmt"
 	"log"
-	// "strings"
 	// "reflect"
 	// "go-request-validator/cmd/validation"
 	// "strconv"
 	"net/http"
 	"encoding/json"
 	"reflect"
+	"strings"
 )
 
 /* 
@@ -25,8 +25,31 @@ func Validate(reqStruct interface{}, req *http.Request) {
 	if(err != nil) {
 		panic(err)
 	}
+	/* need to add the Elem()
+	 * because it's a pointer
+	*/
+	validateRequest(reflect.ValueOf(reqStruct).Elem())
+}
 
-	log.Println(reflect.ValueOf(reqStruct))
+func validateRequest(requestValues reflect.Value) {
+	structFields := requestValues.Type()
+	// log.Println(requestValues.NumField());
+	for i := 0; i < requestValues.NumField(); i++ {
+		// {Name  string json:"name" type:"string" min:"6" max:"60" required:"true" 0 [0] false}
+		field := structFields.Field(i)
+		// Field Name
+		// log.Println(field.Name)
+		
+		// map[json:name max:60 min:6 required:true type:string]
+		tagRules := filterRules(string(field.Tag))
+		for ruleKey, ruleValue := range tagRules {
+			// converting rule value to int
+			// intRuleValue, _ := strconv.Atoi(ruleValue)
+			// fieldRuleName := requestValues.Field(i).String()
+			// log.Println(fieldRuleName, intRuleValue)
+			log.Println(ruleKey, ruleValue)
+		}
+	}
 }
 
 // func Validate(v reflect.Value) {
@@ -63,13 +86,13 @@ func Validate(reqStruct interface{}, req *http.Request) {
 // 	}
 // }
 
-// func filterRules(rawRules string) map[string]string {
-// 	rules := strings.Split(strings.Replace(rawRules, "\"", "", -1), " ")
-// 	mapRules := make(map[string]string, 12)
-// 	for _, rule := range rules {
-// 		keyValue := strings.Split(rule, ":")
-// 		mapRules[string(keyValue[0])] = string(keyValue[1])
-// 	}
+func filterRules(rawRules string) map[string]string {
+	rules := strings.Split(strings.Replace(rawRules, "\"", "", -1), " ")
+	mapRules := make(map[string]string, 12)
+	for _, rule := range rules {
+		keyValue := strings.Split(rule, ":")
+		mapRules[string(keyValue[0])] = string(keyValue[1])
+	}
 
-// 	return mapRules
-// }
+	return mapRules
+}
