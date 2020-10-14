@@ -1,4 +1,5 @@
 # Go Request Validator
+## __PROJECT IN A BREAK__
 - My first project after I've started the [_Go4Noobs Repo_](https://github.com/rafaelbreno/go4noobs)
 ## About
 - This project will be a _Request Validator_

@@ -1,11 +1,7 @@
 package validator
 
 import (
-	// "fmt"
 	"log"
-	// "reflect"
-	// "go-request-validator/cmd/validation"
-	// "strconv"
 	"net/http"
 	"encoding/json"
 	"reflect"
@@ -51,40 +47,6 @@ func validateRequest(requestValues reflect.Value) {
 		}
 	}
 }
-
-// func Validate(v reflect.Value) {
-// 	typeValid := v.Type()
-
-// 	for i := 0; i < v.NumField(); i++ {
-// 		field := typeValid.Field(i)
-// 		rules := filterRules(string(field.Tag))
-// 		for ruleKey, ruleValue := range rules {
-// 			intRuleValue, _ := strconv.Atoi(ruleValue)
-// 			fieldName := v.Field(i).String()
-// 			fieldType := fmt.Sprint(field.Type)
-// 			log.Println("field:", field)
-// 			log.Println("rules:", rules)
-// 			log.Println("ruleValue:", ruleValue)
-// 			log.Println("ruleKey:", ruleKey)
-// 			log.Println("intRuleValue:", intRuleValue)
-// 			log.Println("fieldName:", fieldName)
-// 			log.Println("fieldType:", fieldType)
-// 			switch ruleKey {
-// 				case "required":
-// 					log.Println(validation.Required(fieldName, field.Name))
-// 					break
-// 				case "max":
-// 					log.Println(validation.Max(fieldName, field.Name, intRuleValue, fieldType))
-// 					break
-// 				case "min":
-// 					log.Println(validation.Min(fieldName, field.Name, intRuleValue, fieldType))
-// 					break
-// 				default:
-// 					break
-// 			}
-// 		}
-// 	}
-// }
 
 func filterRules(rawRules string) map[string]string {
 	rules := strings.Split(strings.Replace(rawRules, "\"", "", -1), " ")
